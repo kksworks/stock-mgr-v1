@@ -59,3 +59,4 @@ backend/temp.html
 backend/test_kospi.py
 backend/test_kospi2.py
 backend/test_crawler_index_unit.py
+backups/

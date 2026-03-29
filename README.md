@@ -297,6 +297,20 @@ GitHub Actions는 서버에 SSH 접속해서 아래 순서로 배포합니다.
   ./scripts/start-docker.sh logs
   ```
 
+### 8. 데이터베이스 백업 (`scripts/backup-db.sh`)
+
+현재 MongoDB Atlas(클라우드) 또는 원격 MongoDB를 사용 중인 경우, 데이터 전체를 로컬에 백업할 수 있는 스크립트를 제공합니다.
+
+*   **동작 방식**: 호스트에 MongoDB 도구가 설치되어 있지 않아도, **임시 Docker 컨테이너**를 띄워 `mongodump`를 실행합니다.
+*   **실행 방법**:
+    ```bash
+    ./scripts/backup-db.sh [백업경로]
+    ```
+    - 예: `./scripts/backup-db.sh` (기본 `./backups` 폴더에 저장)
+    - 예: `./scripts/backup-db.sh /tmp/my-backups` (지정된 경로에 저장)
+*   **결과물**: 지정한 경로에 `backup_stock_datas_YYYYMMDD_HHMMSS.tar.gz` 형식으로 압축 저장됩니다.
+*   **주의**: `config.ini`의 `access_url` 정보를 자동으로 읽어서 접속합니다.
+
 ## 라이선스
 
 This project is licensed under the MIT License.
