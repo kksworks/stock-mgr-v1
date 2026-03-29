@@ -2,11 +2,26 @@
   <section class="site-guide-page py-2 py-md-3">
     <div class="card border-0 shadow-sm">
       <div class="card-body p-3 p-md-4">
-        <!-- 페이지 제목 -->
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+        <!-- 사이트 소개 섹션 -->
+        <div class="site-intro-section mb-5">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="/logo.png" alt="GrowMore Logo" class="site-intro-logo" />
+          </div>
+          <div class="intro-text-card p-3 p-md-4 rounded-3 bg-light border-0">
+            <h2 class="h5 fw-bold mb-3 text-dark">GrowMore에 오신 것을 환영합니다</h2>
+            <p class="text-secondary mb-0 lh-lg">
+              <strong>GrowMore</strong>는 스마트한 투자 결정을 지원하는 주식 포트폴리오 관리 플랫폼입니다. <br class="d-none d-md-block" />
+              실시간 시세 조회, 계좌 잔고 추적, 그리고 목표 비중에 맞춘 포트폴리오 재배정 기능을 통해 체계적인 자산 관리를 도와드립니다. 
+              안정적이고 효율적인 투자 여정을 GrowMore와 함께 시작해 보세요.
+            </p>
+          </div>
+        </div>
+
+        <!-- 게시판 제목 -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 border-bottom pb-2">
           <div class="d-flex align-items-center gap-2">
             <MaterialIcon name="announcement" class="text-primary" size="1.35rem" />
-            <h1 class="h5 mb-0">게시판</h1>
+            <h1 class="h5 mb-0 fw-bold">공지사항 및 안내</h1>
           </div>
         </div>
 
@@ -296,6 +311,25 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.site-intro-section {
+  border-bottom: 0px;
+}
+
+.site-intro-logo {
+  height: 2.25rem;
+  width: auto;
+}
+
+.intro-text-card {
+  font-size: 1rem;
+  background-color: var(--ui-surface-soft) !important;
+  color: var(--ui-text) !important;
+}
+
+[data-theme='dark'] .intro-text-card h2 {
+  color: white !important;
+}
+
 .site-guide-page {
   max-width: 880px;
   margin: 0 auto;

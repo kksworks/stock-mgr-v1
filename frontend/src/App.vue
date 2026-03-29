@@ -2,9 +2,8 @@
   <div class="stock-theme">
     <nav class="navbar navbar-expand-lg stock-nav">
       <div class="container-fluid px-2 px-md-3">
-        <router-link class="navbar-brand d-flex align-items-center gap-2 text-primary fw-bold" to="/">
-          <MaterialIcon name="show_chart" size="1.35rem" />
-          Stock
+        <router-link class="navbar-brand d-flex align-items-center" to="/">
+          <img src="/logo.png" alt="GrowMore" style="height: 1.8rem; width: auto;" />
         </router-link>
         <button
           class="navbar-toggler border-0 py-2"
