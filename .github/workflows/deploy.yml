@@ -63,6 +63,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Diagnostics and Debugging
+        run: |
+          echo ">>> Checking Secret Presence (Non-Sensitive) <<<"
+          if [ -z "${{ secrets.DEPLOY_HOST }}" ]; then echo "❌ DEPLOY_HOST is MISSING"; else echo "✅ DEPLOY_HOST is set"; fi
+          if [ -z "${{ secrets.DEPLOY_USER }}" ]; then echo "❌ DEPLOY_USER is MISSING"; else echo "✅ DEPLOY_USER is set"; fi
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then echo "❌ SSH_PRIVATE_KEY is MISSING"; else echo "✅ SSH_PRIVATE_KEY is set"; fi
+          
+          echo ">>> Testing Host Reachability <<<"
+          if [ -n "${{ secrets.DEPLOY_HOST }}" ]; then
+            ping -c 3 ${{ secrets.DEPLOY_HOST }} || echo "⚠️ Host is not pingable (ICMP might be blocked, this is common)"
+          fi
+
       - name: Copy deployment files to server
         uses: appleboy/scp-action@v0.1.7
         with:
