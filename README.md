@@ -244,23 +244,26 @@ Docker만 설치된 로컬 PC 또는 클라우드 VPS에서 동일하게 사용�
 
 ### 7. GitHub Actions 기반 자동 배포 (PR/MR + main push)
 
-워크플로우 파일: `.github/workflows/deploy-docker.yml`
+워스크플로우 파일: 
+- `.github/workflows/deploy.yml`: **빌드 최적화 방식** (GitHub에서 빌드 후 이미지 전송, VPS 부하 적음, **권장**)
+- `.github/workflows/deploy-docker.yml`: **서버 빌드 방식** (서버에서 Git Pull 후 직접 빌드, 설정 간단)
 
 동작 요약:
-- `pull_request` (target: `main`) 이벤트 시: PR 브랜치를 서버에 반영 후 Docker 재배포
-- `push` to `main` 이벤트 시: `main`을 서버에 반영 후 Docker 재배포
-- `workflow_dispatch`: 수동 실행 가능
+- `push` to `main` 이벤트 시: 서버에 자동 반영 후 Docker 재배포
+- `workflow_dispatch`: GitHub Actions 페이지에서 수동 배포 가능
 - 동일 브랜치에서 동시 배포가 발생하면 이전 실행을 취소하고 최신 실행만 유지
 
 #### 7.1 GitHub Repository Secrets 설정
 
-아래 시크릿을 저장소 설정에 등록해야 합니다.
+아래 시크릿을 저장소 설정(`Settings > Secrets and variables > Actions`)에 등록해야 합니다.
 
-- `DEPLOY_HOST`: VPS 호스트/IP
-- `DEPLOY_PORT`: SSH 포트 (예: `22`)
-- `DEPLOY_USER`: SSH 사용자
-- `DEPLOY_SSH_KEY`: 배포용 private key(PEM 전체)
-- `DEPLOY_PATH`: 서버 내 프로젝트 경로 (예: `/home/ubuntu/stock-manage-1/stock-manage-flask`)
+| 이름 | 필수 여부 | 설명 |
+| :--- | :---: | :--- |
+| **`DEPLOY_HOST`** | 필수 | VPS 호스트 또는 IP 주소 |
+| **`DEPLOY_USER`** | 필수 | SSH 접속 사용자 계정 (예: `root`) |
+| **`SSH_PRIVATE_KEY`**| 필수 | SSH Private Key 내용 (`priv.key` 전체) |
+| **`DEPLOY_PORT`** | 선택 | SSH 접속 포트 (기본값: `22`) |
+| **`DEPLOY_PATH`** | 선택 | 서버 내 프로젝트 경로 (기본값: `~/stock-manage`) |
 
 #### 7.2 VPS 1회 초기 설정
 
