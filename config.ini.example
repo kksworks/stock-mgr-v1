@@ -1,0 +1,72 @@
+[mongodb]
+user=your_username
+pass=your_password
+access_url=mongodb+srv://<user>:<password>@<cluster-url>/?appName=Cluster0
+database=stock_datas
+
+[collection]
+ticker=ticker_datas
+# 계좌정보
+account=account_datas
+# 입출금내역
+transaction=transaction_datas
+# 포트폴리오 
+portfolio=portfolio_datas
+# 시스템 로그
+log=log_datas
+
+[server]
+# Docker(gunicorn) 실행 시 동시 처리량/메모리 사용량 제어
+gunicorn_workers=1
+gunicorn_threads=2
+gunicorn_timeout_sec=120
+# run_backend.py(개발 실행)에서 Flask threaded 모드 사용 여부
+flask_threaded=true
+
+[performance]
+# MongoDB 연결 풀/타임아웃
+mongodb_server_selection_timeout_ms=5000
+mongodb_connect_timeout_ms=5000
+mongodb_socket_timeout_ms=5000
+mongodb_max_pool_size=5
+mongodb_max_idle_time_ms=60000
+
+# 현재가 수집 병렬/타임아웃 튜닝
+fetch_price_max_workers=1
+fetch_price_batch_timeout_sec=30
+fetch_price_task_timeout_sec=5
+fetch_price_inter_task_delay_sec=0.15
+fetch_price_request_timeout_sec=3
+fetch_price_inflight_ttl_sec=5
+fetch_price_inflight_wait_sec=8
+fetch_price_max_batch_size=50
+fetch_price_verbose_logs=false
+
+# 계좌 재계산 및 백그라운드 작업 동시성
+recalc_account_workers=1
+background_refresh_workers=1
+background_refresh_queue=1
+background_refresh_cooldown_sec=30
+# 사용자 강제 갱신 버튼 최소 간격(초, DB price_settings 없을 때 기본)
+force_refresh_cooldown_sec=60
+
+# APScheduler 내부 실행 워커 수
+scheduler_max_workers=1
+scheduler_max_active_requests=2
+scheduler_misfire_grace_sec=120
+scheduler_job_max_instances=1
+scheduler_coalesce=true
+portfolio_refresh_min_interval_minutes=15
+
+# 현재가 캐시 기준(분)
+price_refresh_threshold_minutes=10
+
+# 동일 쿼리 병렬 요청 시 MongoDB 중복 조회를 줄이기 위한 in-process 캐시
+query_cache_ttl_sec=5
+query_cache_wait_timeout_sec=3
+
+[flask]
+# 세션 암호화 키 (가급적 길고 복잡한 문자열로 변경 권장)
+secret_key=your_secret_key_here
+# HTTPS 사용 시에만 true로 설정 (브라우저가 보안 연결이 아닐 때 쿠키 전송 방지)
+secure_cookie=false

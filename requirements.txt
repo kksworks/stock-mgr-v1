@@ -1,0 +1,10 @@
+Flask
+flask-cors
+pymongo
+pykrx>=1.2.4
+pandas
+dnspython
+requests
+beautifulsoup4
+APScheduler>=3.10.0
+gunicorn

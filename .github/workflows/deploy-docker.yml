@@ -1,0 +1,54 @@
+name: Deploy Docker Service
+
+on:
+  # main 브랜치에 반영되면 운영 서버 배포
+  push:
+    branches:
+      - main
+  # main 대상 PR(MR) 업데이트 시 스테이징 성격으로 동일 서버/브랜치 배포 가능
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  # 같은 브랜치 배포가 겹치면 이전 실행을 취소해 최신 커밋만 배포
+  group: deploy-docker-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Remote Deploy by SSH
+    runs-on: ubuntu-latest
+    # fork PR은 secrets 접근이 제한되므로 자동 배포 제외
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+    steps:
+      - name: Select deploy branch
+        id: branch
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "name=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            # 원격 저장소를 최신화하고 대상 브랜치를 강제로 맞춤
+            git fetch --prune origin
+            git checkout -B "${{ steps.branch.outputs.name }}" "origin/${{ steps.branch.outputs.name }}"
+
+            # 코드 동기화는 위에서 처리했으므로 스크립트에서는 docker 재기동만 수행
+            ./scripts/start-docker.sh --no-git-pull deploy

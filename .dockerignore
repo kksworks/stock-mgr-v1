@@ -1,0 +1,16 @@
+venv/
+__pycache__/
+*.py[cod]
+.git/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+*.log
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+*.md
+!README.md
