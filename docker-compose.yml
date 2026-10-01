@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: stock-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app/backend
+      - ./backend/run_backend.py:/app/run_backend.py
+      - ./config.ini:/app/config.ini:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      # FLASK_DEBUG=1로 설정하면 코드 변경 시 자동 재시작(리로더)이 활성화됨. (운영/저사양 서버는 0)
+      - FLASK_DEBUG=${FLASK_DEBUG:-0}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - PORT=${PORT:-5000}
+      - TZ=${TZ:-Asia/Seoul}
+      - APP_VERSION=${APP_VERSION:-unknown}
+      - APP_BUILD_DATE=${APP_BUILD_DATE:-unknown}
+    restart: unless-stopped
+
+  # nginx proxy_pass http://stockmgr-d:8080 과 일치 (같은 Docker 네트워크 필요)
+  frontend:
+    container_name: stockmgr-d
+    hostname: stockmgr-d
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - PORT=8080
+      - API_PROXY_TARGET=http://backend:5000
+      - TZ=${TZ:-Asia/Seoul}
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  default:
+    # start-docker.sh의 DOCKER_EXTERNAL_NETWORK 환경변수와 동일한 기본값 사용
+    name: ${DOCKER_EXTERNAL_NETWORK:-mydocker-base-net}
+    external: true

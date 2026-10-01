@@ -1,0 +1,1370 @@
+/* Modern minimal design system */
+:root {
+  --ui-bg: #f7f8fc;
+  --ui-bg-top: #f9faff;
+  --ui-surface: #ffffff;
+  --ui-surface-soft: #f2f4f8;
+  --ui-border: #e5e7ee;
+  --ui-border-strong: #d8dbe6;
+  --ui-text: #0f172a;
+  --ui-text-muted: #64748b;
+  --ui-text-subtle: #334155;
+  --ui-primary: #1f6f54;
+  --ui-primary-hover: #195943;
+  --ui-primary-soft: rgba(31, 111, 84, 0.1);
+  --ui-up: #dc2626;
+  --ui-down: #2563eb;
+  /* 숫자 전용 폰트 — 본문과 동일한 한글 폰트로 통일 (코드용 모노스페이스 폰트는 한글 글리프가 없어 "억"/"만원" 같은 단위가 다른 폰트로 깨져 보임) */
+  --ui-num-font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --ui-nav-bg: rgba(255, 255, 255, 0.9);
+  --ui-card-header-bg: #fafbfe;
+  --ui-table-head-bg: #f8fafe;
+  --ui-table-row-alt: #fafcff;
+  --ui-table-row-hover: #f4f8ff;
+  --ui-alert-success-bg: #ecfdf3;
+  --ui-alert-success-border: #bbf7d0;
+  --ui-alert-success-text: #166534;
+  --ui-alert-danger-bg: #fef2f2;
+  --ui-alert-danger-border: #fecaca;
+  --ui-alert-danger-text: #991b1b;
+  --ui-alert-warning-bg: #fffbeb;
+  --ui-alert-warning-border: #fde68a;
+  --ui-alert-warning-text: #92400e;
+  --ui-alert-info-bg: #eff6ff;
+  --ui-alert-info-border: #bfdbfe;
+  --ui-alert-info-text: #1e3a8a;
+  --ui-radius: 8px;
+  --ui-radius-sm: 4px;
+  /* Material flat controls */
+  --ui-btn-radius: 8px;
+  --ui-btn-radius-pill: 9999px;
+  --ui-btn-height: 2.5rem;
+  --ui-btn-height-sm: 2rem;
+  --ui-btn-height-lg: 2.75rem;
+  --ui-btn-pad-x: 1rem;
+  --ui-btn-pad-x-sm: 0.75rem;
+  --ui-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  --ui-shadow-nav: 0 1px 0 rgba(15, 23, 42, 0.06);
+  /* 링크·포커스·포트폴리오 악센트 (라이트/다크에서 동일 키) */
+  --ui-link: var(--ui-primary);
+  --ui-link-hover: var(--ui-primary-hover);
+  --ui-focus-ring: rgba(31, 111, 84, 0.22);
+  --ui-portfolio-card-border: #c7d2fe;
+  --ui-portfolio-card-bg: #f8faff;
+  --ui-portfolio-text: #3730a3;
+  --ui-portfolio-link: #3730a3;
+  --ui-portfolio-badge-bg: #3730a3;
+  --ui-portfolio-section-bg: #f7f7ff;
+  --ui-portfolio-cash-bg: #f7fbff;
+  --ui-portfolio-section-hover-bg: #f1f5ff;
+  --ui-portfolio-section-hover-border: #cbd5e1;
+  --ui-portfolio-link-hover-bg: rgba(55, 48, 163, 0.08);
+  --ui-portfolio-btn-bg: #3730a3;
+  --ui-portfolio-btn-hover: #312e81;
+  --ui-table-section-holdings-bg: #eff6ff;
+  --ui-table-section-holdings-border: #bfdbfe;
+  --ui-table-section-holdings-text: #1d4ed8;
+  --ui-table-section-profit-bg: #ecfdf3;
+  --ui-table-section-profit-border: #bbf7d0;
+  --ui-table-section-profit-text: #15803d;
+  --ui-table-section-rebal-bg: #f5f3ff;
+  --ui-table-section-rebal-border: #ddd6fe;
+  --ui-table-section-rebal-text: #5b21b6;
+  --ui-form-disabled-bg: #f1f5f9;
+
+  /* 분류(그룹) 색: 채도를 낮춘 톤온톤 팔레트 — 각 분류가 카드 테두리·차트 선 색으로 그대로 이어짐 */
+  --color-category-1: #2f6f5e; /* Pine */
+  --color-category-2: #a8763a; /* Brass */
+  --color-category-3: #4a5d8a; /* Slate Indigo */
+  --color-category-4: #8a4a56; /* Maroon */
+  --color-category-5: #3a7c8c; /* Teal Slate */
+  --color-category-6: #6b5a8a; /* Plum */
+  --color-category-7: #7a8a3a; /* Moss */
+  --color-category-8: #8a5a3a; /* Terracotta */
+  --color-category-default: #94a3b8;
+
+  /* 대시보드 분류 카드 팔레트 — 카드 테두리·타이틀·배지 등 넓은 면적에 쓰여 --color-category-*보다 또렷하되
+     원색 그대로는 과해서 채도를 살짝 낮춘 톤. 대시보드(MainDashboard)와 잔고 목록(BalanceList) 그룹 카드가 공유 */
+  --dash-cat-1: #10926d;
+  --dash-cat-2: #cb7716;
+  --dash-cat-3: #524cda;
+  --dash-cat-4: #d22750;
+  --dash-cat-5: #138ead;
+  --dash-cat-6: #8d3bdf;
+  --dash-cat-7: #659d1c;
+  --dash-cat-8: #da5b1b;
+}
+
+:root[data-theme="dark"] {
+  --ui-bg: #0b1220;
+  --ui-bg-top: #121a2b;
+  --ui-surface: #111a2c;
+  --ui-surface-soft: #1a253b;
+  --ui-border: #25324b;
+  --ui-border-strong: #31405c;
+  --ui-text: #e5edf7;
+  --ui-text-muted: #93a4bf;
+  --ui-text-subtle: #c4d1e3;
+  --ui-up: #fb7185;
+  --ui-down: #60a5fa;
+  --ui-nav-bg: rgba(10, 16, 29, 0.92);
+  --ui-card-header-bg: #18243a;
+  --ui-table-head-bg: #162338;
+  --ui-table-row-alt: #101a2d;
+  --ui-table-row-hover: #1a2943;
+  --ui-alert-success-bg: #123126;
+  --ui-alert-success-border: #1f5a45;
+  --ui-alert-success-text: #9ae6b4;
+  --ui-alert-danger-bg: #3a1a22;
+  --ui-alert-danger-border: #6a2a39;
+  --ui-alert-danger-text: #fecdd3;
+  --ui-alert-warning-bg: #3d2e13;
+  --ui-alert-warning-border: #6e5627;
+  --ui-alert-warning-text: #fde68a;
+  --ui-alert-info-bg: #172b45;
+  --ui-alert-info-border: #2a4b73;
+  --ui-alert-info-text: #bfdbfe;
+  --ui-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --ui-shadow-nav: 0 1px 0 rgba(255, 255, 255, 0.05);
+  --ui-primary: #34b88a;
+  --ui-primary-hover: #4fd1a5;
+  --ui-primary-soft: rgba(52, 184, 138, 0.16);
+  --ui-link: #6bd9ae;
+  --ui-link-hover: #a0ecc9;
+  --ui-focus-ring: rgba(52, 184, 138, 0.32);
+  --ui-portfolio-card-border: #3d4e74;
+  --ui-portfolio-card-bg: #131f35;
+  --ui-portfolio-text: #c7d2fe;
+  --ui-portfolio-link: #a5b4fc;
+  --ui-portfolio-badge-bg: #4f46e5;
+  --ui-portfolio-section-bg: #131f35;
+  --ui-portfolio-cash-bg: #131f35;
+  --ui-portfolio-section-hover-bg: #1a2a44;
+  --ui-portfolio-section-hover-border: #415376;
+  --ui-portfolio-link-hover-bg: rgba(165, 180, 252, 0.18);
+  --ui-portfolio-btn-bg: #4f46e5;
+  --ui-portfolio-btn-hover: #4338ca;
+  --ui-table-section-holdings-bg: #112644;
+  --ui-table-section-holdings-border: #2a4b73;
+  --ui-table-section-holdings-text: #93c5fd;
+  --ui-table-section-profit-bg: #123126;
+  --ui-table-section-profit-border: #1f5a45;
+  --ui-table-section-profit-text: #86efac;
+  --ui-table-section-rebal-bg: #2b2147;
+  --ui-table-section-rebal-border: #4b3b76;
+  --ui-table-section-rebal-text: #c4b5fd;
+  --ui-form-disabled-bg: #18243a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  color: var(--ui-text);
+  background: linear-gradient(180deg, var(--ui-bg-top) 0%, var(--ui-bg) 40%, var(--ui-bg) 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+  padding: 0;
+  text-align: left;
+}
+
+.stock-theme {
+  color: var(--ui-text);
+}
+
+/* Material icon consistency */
+.material-symbols-outlined.ms-fin-icon {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  vertical-align: -0.2em;
+  line-height: 1;
+  user-select: none;
+}
+
+h1 .ms-fin-icon,
+h2 .ms-fin-icon,
+h5 .ms-fin-icon,
+h6 .ms-fin-icon {
+  color: var(--ui-primary);
+}
+
+/* number cell consistency — 금액·비율 등 모든 수치는 본문과 동일한 한글 폰트를 쓰되, tabular-nums로 자릿수 정렬만 맞춘다 */
+.tabular-nums,
+.num-cell,
+.stock-theme .table .text-end,
+.stock-theme .table td.text-end,
+.stock-theme .table th.text-end {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-family: var(--ui-num-font);
+}
+
+/* Navbar */
+.stock-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  backdrop-filter: blur(8px);
+  background: var(--ui-nav-bg) !important;
+  border-bottom: 1px solid var(--ui-border);
+  box-shadow: var(--ui-shadow-nav);
+  min-height: 60px;
+}
+
+.stock-nav .navbar-brand {
+  color: var(--ui-text) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  padding: 0.75rem 0;
+}
+
+:root[data-theme="dark"] .stock-nav {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 네비게이션 액션 — 일반 페이지 버튼과 동일 톤(플랫, 그라데이션 없음) */
+.nav-action-btn {
+  background: var(--ui-surface-soft);
+  color: var(--ui-text-subtle);
+  border: 1px solid var(--ui-border-strong);
+  border-radius: var(--ui-btn-radius);
+  font-weight: 500;
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-action-btn:hover {
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border-color: var(--ui-border-strong);
+}
+
+.nav-action-btn-primary {
+  background: var(--ui-primary);
+  color: #fff;
+  border: 1px solid var(--ui-primary);
+  border-radius: var(--ui-btn-radius);
+  font-weight: 600;
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-action-btn-primary:hover {
+  background: var(--ui-primary-hover);
+  border-color: var(--ui-primary-hover);
+  color: #fff;
+}
+
+.stock-nav .ms-fin-icon {
+  color: var(--ui-primary);
+}
+
+.stock-nav .nav-link {
+  color: var(--ui-text-subtle) !important;
+  font-weight: 500;
+  font-size: 0.93rem;
+  border-radius: var(--ui-radius-sm);
+  padding: 0.58rem 0.78rem !important;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.stock-nav .nav-link:hover {
+  background: var(--ui-surface-soft) !important;
+  color: var(--ui-text) !important;
+}
+
+.stock-nav .nav-link.router-link-active {
+  background: var(--ui-primary-soft) !important;
+  color: var(--ui-primary) !important;
+}
+
+.stock-nav .dropdown-menu {
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+  padding: 0.45rem;
+}
+
+.stock-nav .dropdown-item {
+  color: var(--ui-text-subtle);
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.58rem 0.75rem;
+}
+
+.stock-nav .dropdown-item:hover {
+  background: var(--ui-surface-soft);
+  color: var(--ui-text);
+}
+
+.stock-nav .dropdown-divider {
+  border-color: var(--ui-border);
+}
+
+
+
+.stock-nav .navbar-toggler {
+  border-color: var(--ui-border);
+}
+
+@media (max-width: 991.98px) {
+  .stock-nav .navbar-collapse {
+    margin-top: 0.5rem;
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--ui-border);
+    background: var(--ui-surface);
+  }
+
+  .stock-nav .navbar-nav {
+    gap: 0.3rem !important;
+  }
+
+  .stock-nav .navbar-nav .nav-link,
+  .stock-nav .navbar-nav .dropdown-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.62rem 0.72rem !important;
+  }
+
+  .stock-nav .dropdown-menu {
+    position: static;
+    float: none;
+    width: 100%;
+    margin-top: 0.35rem;
+    box-shadow: none;
+  }
+}
+
+/* Layout */
+.stock-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .stock-container {
+    padding: 1.35rem 1.25rem 2rem;
+  }
+}
+
+/* Cards */
+.stock-theme .card {
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+
+.stock-theme .card-header {
+  background: var(--ui-card-header-bg);
+  color: var(--ui-text);
+  border-bottom: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius) var(--ui-radius) 0 0;
+  font-weight: 600;
+}
+
+.stock-theme .card.bg-light {
+  background: var(--ui-card-header-bg) !important;
+  border-color: var(--ui-border);
+}
+
+.action-panel {
+  background: var(--ui-surface-soft) !important;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius) !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* 계좌 목록 등 공통 카드 (뷰별 하드코딩 제거) */
+.mobile-overview-card-professional {
+  background-color: var(--ui-surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(15, 23, 42, 0.08) !important;
+}
+
+:root[data-theme="dark"] .hover-lift:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Tables */
+.stock-theme .table,
+.stock-table {
+  margin-bottom: 0;
+  font-size: 0.94rem;
+}
+
+.stock-theme .table thead th,
+.stock-table thead th {
+  background: var(--ui-table-head-bg) !important;
+  color: var(--ui-text-subtle);
+  border-bottom: 1px solid var(--ui-border-strong);
+  font-weight: 600;
+  padding: 0.64rem 0.56rem;
+  white-space: nowrap;
+}
+
+.stock-theme .table tbody td,
+.stock-table tbody td {
+  padding: 0.64rem 0.56rem;
+  border-color: var(--ui-border);
+  vertical-align: middle;
+}
+
+.stock-theme .table-striped > tbody > tr:nth-of-type(even) > * {
+  background-color: var(--ui-table-row-alt);
+}
+
+.stock-theme .table-hover tbody tr:hover,
+.stock-theme .table tbody tr:hover {
+  background: var(--ui-table-row-hover);
+}
+
+/* Semantic text */
+.text-stock-up,
+.profit-positive {
+  color: var(--ui-up) !important;
+  font-weight: 600;
+}
+
+.text-stock-down,
+.profit-negative {
+  color: var(--ui-down) !important;
+  font-weight: 600;
+}
+
+.stock-theme .text-danger {
+  color: var(--ui-up) !important;
+}
+
+.stock-theme .text-primary {
+  color: var(--ui-down) !important;
+}
+
+.stock-theme .text-muted {
+  color: var(--ui-text-muted) !important;
+}
+
+/* Buttons — Material flat (무그림자·고정 높이·토널 변형) */
+.stock-theme .btn {
+  border-radius: var(--ui-btn-radius);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.stock-theme .btn.rounded-pill {
+  border-radius: var(--ui-btn-radius-pill);
+}
+
+.stock-theme .btn:not(.btn-link):not(.btn-close):not(.rounded-circle) {
+  min-height: var(--ui-btn-height);
+  padding-left: var(--ui-btn-pad-x);
+  padding-right: var(--ui-btn-pad-x);
+}
+
+.stock-theme .btn-sm:not(.btn-link):not(.rounded-circle) {
+  min-height: var(--ui-btn-height-sm);
+  padding-left: var(--ui-btn-pad-x-sm);
+  padding-right: var(--ui-btn-pad-x-sm);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.8125rem;
+}
+
+.stock-theme .btn-lg:not(.btn-link):not(.rounded-circle) {
+  min-height: var(--ui-btn-height-lg);
+  padding-left: 1.15rem;
+  padding-right: 1.15rem;
+}
+
+.stock-theme .btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--ui-surface), 0 0 0 4px var(--ui-focus-ring) !important;
+}
+
+.stock-theme .btn-primary {
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
+  color: #fff;
+}
+
+.stock-theme .btn-primary:hover:not(:disabled) {
+  background: var(--ui-primary-hover);
+  border-color: var(--ui-primary-hover);
+  color: #fff;
+}
+
+.stock-theme .btn-secondary {
+  background: var(--ui-surface-soft);
+  color: var(--ui-text-subtle);
+  border-color: var(--ui-border-strong);
+}
+
+.stock-theme .btn-secondary:hover:not(:disabled) {
+  background: var(--ui-border-strong);
+  border-color: var(--ui-border-strong);
+  color: var(--ui-text);
+}
+
+.stock-theme .btn-success {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+}
+
+.stock-theme .btn-success:hover:not(:disabled) {
+  background: #166534;
+  border-color: #166534;
+  color: #fff;
+}
+
+.stock-theme .btn-danger {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+.stock-theme .btn-danger:hover:not(:disabled) {
+  background: #991b1b;
+  border-color: #991b1b;
+  color: #fff;
+}
+
+.stock-theme .btn-warning {
+  background: #ca8a04;
+  border-color: #ca8a04;
+  color: #1c1917;
+}
+
+.stock-theme .btn-warning:hover:not(:disabled) {
+  background: #a16207;
+  border-color: #a16207;
+  color: #1c1917;
+}
+
+.stock-theme .btn-info {
+  background: #0369a1;
+  border-color: #0369a1;
+  color: #fff;
+}
+
+.stock-theme .btn-info:hover:not(:disabled) {
+  background: #075985;
+  border-color: #075985;
+  color: #fff;
+}
+
+.stock-theme .btn-outline-primary {
+  color: var(--ui-primary);
+  border-color: var(--ui-primary);
+  background: transparent;
+}
+
+.stock-theme .btn-outline-primary:hover:not(:disabled) {
+  color: #fff;
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
+}
+
+.stock-theme .btn-outline-secondary {
+  color: var(--ui-text-subtle);
+  border-color: var(--ui-border-strong);
+  background: transparent;
+}
+
+.stock-theme .btn-outline-secondary:hover:not(:disabled) {
+  color: var(--ui-text);
+  background: var(--ui-surface-soft);
+  border-color: var(--ui-border-strong);
+}
+
+.stock-theme .btn-outline-success {
+  color: #15803d;
+  border-color: #86efac;
+  background: transparent;
+}
+
+.stock-theme .btn-outline-success:hover:not(:disabled) {
+  color: #fff;
+  background: #15803d;
+  border-color: #15803d;
+}
+
+.stock-theme .btn-outline-danger {
+  color: #b91c1c;
+  border-color: #fecaca;
+  background: transparent;
+}
+
+.stock-theme .btn-outline-danger:hover:not(:disabled) {
+  color: #fff;
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+
+/* Filled tonal — 보조 강조(대시보드·잔고 툴바 등), 플랫 */
+.stock-theme .btn-tonal-info {
+  background: var(--ui-alert-info-bg);
+  color: var(--ui-alert-info-text);
+  border: 1px solid var(--ui-alert-info-border);
+}
+
+.stock-theme .btn-tonal-info:hover:not(:disabled) {
+  background: var(--ui-surface);
+  color: var(--ui-primary);
+  border-color: var(--ui-primary);
+}
+
+.stock-theme .btn-tonal-violet {
+  background: var(--ui-table-section-rebal-bg);
+  color: var(--ui-table-section-rebal-text);
+  border: 1px solid var(--ui-table-section-rebal-border);
+}
+
+.stock-theme .btn-tonal-violet:hover:not(:disabled) {
+  background: var(--ui-surface);
+  color: var(--ui-table-section-rebal-text);
+  border-color: var(--ui-table-section-rebal-border);
+}
+
+.stock-theme .btn-tonal-success {
+  background: var(--ui-alert-success-bg);
+  color: var(--ui-alert-success-text);
+  border: 1px solid var(--ui-alert-success-border);
+}
+
+.stock-theme .btn-tonal-success:hover:not(:disabled) {
+  background: var(--ui-surface);
+  color: #15803d;
+  border-color: var(--ui-alert-success-border);
+}
+
+.stock-theme .btn-tonal-warning {
+  background: var(--ui-alert-warning-bg);
+  color: var(--ui-alert-warning-text);
+  border: 1px solid var(--ui-alert-warning-border);
+}
+
+.stock-theme .btn-tonal-warning:hover:not(:disabled) {
+  background: var(--ui-surface);
+  color: var(--ui-alert-warning-text);
+  border-color: var(--ui-alert-warning-border);
+}
+
+.stock-theme .btn-tonal-neutral {
+  background: var(--ui-surface-soft);
+  color: var(--ui-text-subtle);
+  border: 1px solid var(--ui-border-strong);
+}
+
+.stock-theme .btn-tonal-neutral:hover:not(:disabled) {
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border-color: var(--ui-border-strong);
+}
+
+.stock-theme .btn-primary .ms-fin-icon,
+.stock-theme .btn-danger .ms-fin-icon,
+.stock-theme .btn-success .ms-fin-icon,
+.stock-theme .btn-info .ms-fin-icon,
+.stock-theme .btn-warning .ms-fin-icon {
+  color: inherit !important;
+}
+
+.stock-theme .btn-outline-secondary .ms-fin-icon,
+.stock-theme .btn-outline-primary .ms-fin-icon,
+.stock-theme .btn-tonal-info .ms-fin-icon,
+.stock-theme .btn-tonal-violet .ms-fin-icon,
+.stock-theme .btn-tonal-success .ms-fin-icon,
+.stock-theme .btn-tonal-warning .ms-fin-icon,
+.stock-theme .btn-tonal-neutral .ms-fin-icon {
+  color: inherit !important;
+}
+
+.stock-theme .btn:disabled,
+.stock-theme .btn.disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.btn-group-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Form */
+.stock-theme .form-control,
+.stock-theme .form-select {
+  border-color: var(--ui-border-strong);
+  border-radius: 10px;
+}
+
+.stock-theme .form-control:focus,
+.stock-theme .form-select:focus {
+  border-color: var(--ui-primary);
+  box-shadow: 0 0 0 0.2rem var(--ui-focus-ring);
+}
+
+:root[data-theme="dark"] .stock-theme .form-control:focus,
+:root[data-theme="dark"] .stock-theme .form-select:focus {
+  border-color: var(--ui-down);
+  box-shadow: 0 0 0 0.2rem var(--ui-focus-ring);
+}
+
+/* Alerts */
+.stock-theme .alert {
+  border-radius: 12px;
+}
+
+.stock-theme .alert-success {
+  background: var(--ui-alert-success-bg);
+  border-color: var(--ui-alert-success-border);
+  color: var(--ui-alert-success-text);
+}
+
+.stock-theme .alert-danger {
+  background: var(--ui-alert-danger-bg);
+  border-color: var(--ui-alert-danger-border);
+  color: var(--ui-alert-danger-text);
+}
+
+.stock-theme .alert-warning {
+  background: var(--ui-alert-warning-bg);
+  border-color: var(--ui-alert-warning-border);
+  color: var(--ui-alert-warning-text);
+}
+
+.stock-theme .alert-info {
+  background: var(--ui-alert-info-bg);
+  border-color: var(--ui-alert-info-border);
+  color: var(--ui-alert-info-text);
+}
+
+/* Badges */
+.stock-theme .badge.bg-secondary {
+  background: #64748b !important;
+}
+
+.stock-theme .badge.bg-info {
+  background: var(--ui-primary) !important;
+  color: #fff;
+}
+
+/* Headings */
+.stock-theme h1 {
+  font-size: 1.34rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 768px) {
+  .stock-theme h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.stock-theme h2 {
+  font-size: 1.22rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ui-text);
+}
+
+.stock-theme h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.stock-theme h4,
+.stock-theme h5,
+.stock-theme h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.stock-theme a:not(.btn):not(.nav-link):not(.dropdown-item):not(.navbar-brand):not(.page-link) {
+  color: var(--ui-link);
+}
+
+.stock-theme a:not(.btn):not(.nav-link):not(.dropdown-item):not(.navbar-brand):not(.page-link):hover {
+  color: var(--ui-link-hover);
+}
+
+/* Portfolio semantic accents */
+.portfolio-card {
+  border: 1px solid var(--ui-portfolio-card-border) !important;
+  background: var(--ui-portfolio-card-bg) !important;
+}
+
+.portfolio-text {
+  color: var(--ui-portfolio-text) !important;
+  font-weight: 600;
+}
+
+.portfolio-badge {
+  background: var(--ui-portfolio-badge-bg) !important;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-weight: 600;
+}
+
+.portfolio-section,
+.cash-edit-section {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-sm);
+  padding: 0.6rem 0.95rem !important;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.portfolio-section {
+  background: var(--ui-portfolio-section-bg);
+}
+
+.cash-edit-section {
+  background: var(--ui-portfolio-cash-bg);
+}
+
+.portfolio-section:hover,
+.cash-edit-section:hover {
+  background: var(--ui-portfolio-section-hover-bg);
+  border-color: var(--ui-portfolio-section-hover-border);
+}
+
+.portfolio-link-text {
+  color: var(--ui-portfolio-link);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.portfolio-link-text:hover {
+  background: var(--ui-portfolio-link-hover-bg);
+}
+
+.btn-portfolio {
+  background: var(--ui-portfolio-btn-bg) !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: none !important;
+}
+
+.btn-portfolio:hover {
+  background: var(--ui-portfolio-btn-hover) !important;
+}
+
+.hover-primary:hover {
+  color: var(--ui-primary) !important;
+}
+
+.transition-colors {
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+}
+
+/* section highlights */
+.table-section-holdings {
+  background: var(--ui-table-section-holdings-bg) !important;
+  border-bottom: 2px solid var(--ui-table-section-holdings-border) !important;
+  color: var(--ui-table-section-holdings-text);
+  font-weight: 600;
+}
+
+.table-section-profit {
+  background: var(--ui-table-section-profit-bg) !important;
+  border-bottom: 2px solid var(--ui-table-section-profit-border) !important;
+  color: var(--ui-table-section-profit-text);
+  font-weight: 600;
+}
+
+.table-section-rebalancing {
+  background: var(--ui-table-section-rebal-bg) !important;
+  border-bottom: 2px solid var(--ui-table-section-rebal-border) !important;
+  color: var(--ui-table-section-rebal-text);
+  font-weight: 600;
+}
+
+.section-divider {
+  border-right: 1px solid var(--ui-border) !important;
+}
+
+.header-divider {
+  border-right: 1px solid var(--ui-border-strong) !important;
+}
+
+/* 포트폴리오·테이블 섹션 색은 :root 토큰으로 라이트/다크 공통 처리 */
+
+/* Bootstrap utility overrides for dark mode readability */
+:root[data-theme="dark"] .stock-theme .bg-white,
+:root[data-theme="dark"] .stock-theme .bg-light {
+  background-color: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .bg-info-subtle,
+:root[data-theme="dark"] .stock-theme .bg-primary-subtle,
+:root[data-theme="dark"] .stock-theme .bg-secondary-subtle,
+:root[data-theme="dark"] .stock-theme .bg-warning-subtle {
+  background-color: var(--ui-surface-soft) !important;
+  border-color: var(--ui-border) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .text-info,
+:root[data-theme="dark"] .stock-theme .text-secondary {
+  color: var(--ui-text-subtle) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .text-dark,
+:root[data-theme="dark"] .stock-theme .text-black {
+  color: var(--ui-text) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .text-body,
+:root[data-theme="dark"] .stock-theme .text-secondary,
+:root[data-theme="dark"] .stock-theme .text-body-secondary,
+:root[data-theme="dark"] .stock-theme .text-reset,
+:root[data-theme="dark"] .stock-theme .small,
+:root[data-theme="dark"] .stock-theme small {
+  color: var(--ui-text-subtle) !important;
+}
+
+:root[data-theme="dark"] .stock-theme h1,
+:root[data-theme="dark"] .stock-theme h2,
+:root[data-theme="dark"] .stock-theme h3,
+:root[data-theme="dark"] .stock-theme h4,
+:root[data-theme="dark"] .stock-theme h5,
+:root[data-theme="dark"] .stock-theme h6,
+:root[data-theme="dark"] .stock-theme label,
+:root[data-theme="dark"] .stock-theme .form-label {
+  color: var(--ui-text) !important;
+}
+
+:root[data-theme="dark"] .stock-theme a:not(.btn):not(.nav-link):not(.dropdown-item):not(.navbar-brand):not(.page-link) {
+  color: var(--ui-link);
+}
+
+:root[data-theme="dark"] .stock-theme a:not(.btn):not(.nav-link):not(.dropdown-item):not(.navbar-brand):not(.page-link):hover {
+  color: var(--ui-link-hover);
+}
+
+:root[data-theme="dark"] .stock-theme .border,
+:root[data-theme="dark"] .stock-theme .border-top,
+:root[data-theme="dark"] .stock-theme .border-end,
+:root[data-theme="dark"] .stock-theme .border-bottom,
+:root[data-theme="dark"] .stock-theme .border-start {
+  border-color: var(--ui-border) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .table {
+  --bs-table-color: var(--ui-text-subtle);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--ui-border);
+  --bs-table-striped-color: var(--ui-text-subtle);
+  --bs-table-striped-bg: var(--ui-table-row-alt);
+  --bs-table-hover-color: var(--ui-text);
+  --bs-table-hover-bg: var(--ui-table-row-hover);
+}
+
+:root[data-theme="dark"] .stock-theme .table-light,
+:root[data-theme="dark"] .stock-theme .table-light > th,
+:root[data-theme="dark"] .stock-theme .table-light > td,
+:root[data-theme="dark"] .stock-theme .table > :not(caption) > * > .table-light {
+  background-color: var(--ui-table-head-bg) !important;
+  color: var(--ui-text-subtle) !important;
+  border-color: var(--ui-border) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .table th,
+:root[data-theme="dark"] .stock-theme .table td,
+:root[data-theme="dark"] .stock-theme .table thead th {
+  color: var(--ui-text-subtle) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .list-group-item {
+  background-color: var(--ui-surface) !important;
+  color: var(--ui-text-subtle) !important;
+  border-color: var(--ui-border) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .list-group-item.list-group-item-action:hover,
+:root[data-theme="dark"] .stock-theme .list-group-item.list-group-item-action:focus {
+  background-color: var(--ui-surface-soft) !important;
+  color: var(--ui-text) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .list-group-item.active {
+  background-color: var(--ui-primary-soft) !important;
+  border-color: var(--ui-primary) !important;
+  color: #dbeafe !important;
+}
+
+:root[data-theme="dark"] .stock-theme .badge.bg-light {
+  background-color: var(--ui-surface-soft) !important;
+  color: var(--ui-text) !important;
+  border-color: var(--ui-border-strong) !important;
+}
+
+:root[data-theme="dark"] .stock-theme .form-control,
+:root[data-theme="dark"] .stock-theme .form-select,
+:root[data-theme="dark"] .stock-theme .input-group-text {
+  background: var(--ui-surface-soft);
+  color: var(--ui-text);
+  border-color: var(--ui-border-strong);
+}
+
+:root[data-theme="dark"] .stock-theme .form-control::placeholder {
+  color: var(--ui-text-muted);
+}
+
+:root[data-theme="dark"] .stock-theme .form-control:disabled,
+:root[data-theme="dark"] .stock-theme .form-select:disabled {
+  background: var(--ui-form-disabled-bg);
+  color: var(--ui-text-muted);
+}
+
+.stock-theme .form-control:disabled,
+.stock-theme .form-select:disabled {
+  background: var(--ui-form-disabled-bg);
+  color: var(--ui-text-muted);
+}
+
+:root[data-theme="dark"] .stock-theme .modal-content {
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border-color: var(--ui-border);
+}
+
+:root[data-theme="dark"] .stock-theme .modal-title,
+:root[data-theme="dark"] .stock-theme .card-title,
+:root[data-theme="dark"] .stock-theme .card-header,
+:root[data-theme="dark"] .stock-theme .card-body {
+  color: var(--ui-text);
+}
+
+:root[data-theme="dark"] .stock-theme .modal-header,
+:root[data-theme="dark"] .stock-theme .modal-footer {
+  border-color: var(--ui-border);
+}
+
+:root[data-theme="dark"] .stock-theme .btn-close {
+  filter: invert(1) grayscale(1) brightness(180%);
+}
+
+/* Dark mode button contrast tuning (avoid overly saturated primaries) */
+:root[data-theme="dark"] .stock-theme .btn-primary {
+  background: #315da8;
+  border-color: #315da8;
+  color: #edf3ff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-primary:hover,
+:root[data-theme="dark"] .stock-theme .btn-primary:focus {
+  background: #3a69b8;
+  border-color: #3a69b8;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-success {
+  background: #2f7a60;
+  border-color: #2f7a60;
+  color: #ecfff7;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-success:hover,
+:root[data-theme="dark"] .stock-theme .btn-success:focus {
+  background: #388c6e;
+  border-color: #388c6e;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-danger {
+  background: #a34a61;
+  border-color: #a34a61;
+  color: #fff1f4;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-danger:hover,
+:root[data-theme="dark"] .stock-theme .btn-danger:focus {
+  background: #b5576f;
+  border-color: #b5576f;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-info {
+  background: #3b728f;
+  border-color: #3b728f;
+  color: #eefbff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-info:hover,
+:root[data-theme="dark"] .stock-theme .btn-info:focus {
+  background: #4784a5;
+  border-color: #4784a5;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-warning {
+  background: #9a7640;
+  border-color: #9a7640;
+  color: #fff9ef;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-warning:hover,
+:root[data-theme="dark"] .stock-theme .btn-warning:focus {
+  background: #aa844a;
+  border-color: #aa844a;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-secondary {
+  background: #334155;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-secondary:hover,
+:root[data-theme="dark"] .stock-theme .btn-secondary:focus {
+  background: #3d4d63;
+  border-color: #3d4d63;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-primary,
+:root[data-theme="dark"] .stock-theme .btn-outline-secondary,
+:root[data-theme="dark"] .stock-theme .btn-outline-success,
+:root[data-theme="dark"] .stock-theme .btn-outline-danger,
+:root[data-theme="dark"] .stock-theme .btn-outline-info,
+:root[data-theme="dark"] .stock-theme .btn-outline-warning {
+  background: transparent;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-primary {
+  color: #9fc0ff;
+  border-color: #4d6ea8;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-primary:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-primary:focus {
+  color: #ffffff;
+  background: #315da8;
+  border-color: #315da8;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-secondary {
+  color: #b7c4d8;
+  border-color: #4b5a72;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-secondary:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-secondary:focus {
+  color: #ffffff;
+  background: #3b4d67;
+  border-color: #3b4d67;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-success {
+  color: #8be0bf;
+  border-color: #3b7c69;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-success:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-success:focus {
+  color: #ffffff;
+  background: #2f7a60;
+  border-color: #2f7a60;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-danger {
+  color: #f3b2c1;
+  border-color: #915164;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-danger:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-danger:focus {
+  color: #ffffff;
+  background: #a34a61;
+  border-color: #a34a61;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-info {
+  color: #9ccfe7;
+  border-color: #4d7994;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-info:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-info:focus {
+  color: #ffffff;
+  background: #3b728f;
+  border-color: #3b728f;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-warning {
+  color: #f0d49a;
+  border-color: #90723f;
+}
+
+:root[data-theme="dark"] .stock-theme .btn-outline-warning:hover,
+:root[data-theme="dark"] .stock-theme .btn-outline-warning:focus {
+  color: #ffffff;
+  background: #9a7640;
+  border-color: #9a7640;
+}
+
+:root[data-theme="dark"] .stock-theme .btn:disabled,
+:root[data-theme="dark"] .stock-theme .btn.disabled {
+  opacity: 0.65;
+}
+
+:root[data-theme="dark"] .stock-nav .btn-light {
+  background: #315da8;
+  border-color: #315da8;
+  color: #edf3ff;
+}
+
+:root[data-theme="dark"] .stock-nav .btn-light:hover {
+  background: #3a69b8;
+  border-color: #3a69b8;
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .stock-nav .btn-outline-light {
+  background: transparent;
+  border-color: #4b5a72;
+  color: #b7c4d8 !important;
+}
+
+:root[data-theme="dark"] .stock-nav .btn-outline-light:hover {
+  background: #3b4d67 !important;
+  border-color: #3b4d67;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .stock-nav .navbar-collapse {
+  background: #131f34;
+  border-color: #2a3a56;
+}
+
+:root[data-theme="dark"] .stock-nav .nav-link,
+:root[data-theme="dark"] .stock-nav .dropdown-toggle {
+  color: #d4e0f2 !important;
+}
+
+:root[data-theme="dark"] .stock-nav .nav-link:hover,
+:root[data-theme="dark"] .stock-nav .dropdown-toggle:hover {
+  background: #1d2b45 !important;
+  color: #f5f9ff !important;
+}
+
+:root[data-theme="dark"] .stock-nav .dropdown-menu {
+  background: #15233a;
+  border-color: #2a3a56;
+}
+
+:root[data-theme="dark"] .stock-nav .dropdown-item {
+  color: #d4e0f2;
+}
+
+:root[data-theme="dark"] .stock-nav .dropdown-item:hover {
+  background: #1e304d;
+  color: #f5f9ff;
+}
+
+:root[data-theme="dark"] .stock-nav .navbar-toggler {
+  border-color: #3a4f73;
+  background: #1a2740;
+}
+
+:root[data-theme="dark"] .stock-nav .navbar-toggler-icon {
+  filter: invert(1) contrast(1.1);
+}
+
+/* 가벼운 진입 애니메이션 (animate.css 의존 없음 → 초기 로드·리페인트 절약) */
+@keyframes stockFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes stockFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stock-fade-in {
+  animation: stockFadeIn 0.35s ease-out both;
+}
+
+.stock-fade-in-up {
+  animation: stockFadeInUp 0.38s ease-out both;
+}
+
+@keyframes rotateSync {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotate-animation {
+  animation: rotateSync 1.2s linear infinite;
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stock-fade-in,
+  .stock-fade-in-up,
+  .rotate-animation {
+    animation: none;
+  }
+}
+
+/* Override utility classes for smaller radius */
+.rounded-4 {
+  border-radius: var(--ui-radius) !important;
+}
+
+.rounded-3 {
+  border-radius: 6px !important;
+}

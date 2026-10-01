@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+dist/
+.cache/
+
+# Environment / Secret
+.env
+config.ini
+!config.ini.example
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Claude Code (personal local overrides)
+.claude/settings.local.json
+*.swo
+
+# Docker
+.docker_data/
+mongodb_data/
+
+# Project Specific
+backend/temp.html
+backend/test_kospi.py
+backend/test_kospi2.py
+backend/test_crawler_index_unit.py
+backups/

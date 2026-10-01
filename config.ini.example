@@ -1,0 +1,112 @@
+# =============================================================================
+# config.ini.example — 애플리케이션 설정 샘플
+# =============================================================================
+# 사용 방법:
+#   1) 이 파일을 프로젝트 루트에 `config.ini` 로 복사합니다.
+#        cp config.ini.example config.ini
+#   2) [mongodb] 섹션을 자신의 MongoDB 접속 정보로 수정합니다. (필수)
+#   3) 나머지 섹션은 기본값으로도 동작하며, 필요 시에만 조정하면 됩니다.
+#
+# 주의:
+#   - `config.ini`는 .gitignore에 포함되어 있어 git에 커밋되지 않습니다.
+#     (커밋되는 것은 이 샘플 파일 `config.ini.example` 뿐입니다.)
+#   - 실제 접속 정보/비밀키가 담긴 `config.ini`는 절대 공개 저장소에 올리지 마세요.
+# =============================================================================
+
+[mongodb]
+# MongoDB Atlas(클라우드) 또는 자체 호스팅 MongoDB 접속 정보
+# user/pass는 access_url 작성 시 참고용 표기이며, 앱은 access_url만 실제로 사용합니다.
+# (access_url 안의 <user>:<password> 부분을 아래 user/pass 값으로 바꿔서 채워주세요.)
+user=your_username
+pass=your_password
+# 예: mongodb+srv://<user>:<password>@<cluster-url>/?appName=Cluster0
+# 로컬 MongoDB를 쓴다면: mongodb://localhost:27017/
+access_url=mongodb+srv://your_username:your_password@<cluster-url>/?appName=Cluster0
+# 사용할 데이터베이스 이름 (원하는 이름으로 변경 가능)
+database=stock_datas
+
+[collection]
+# 아래는 MongoDB 컬렉션(테이블) 이름입니다. 특별한 이유가 없다면 기본값을 그대로 사용하세요.
+# 종목(티커) 정보
+ticker=ticker_datas
+# 계좌 정보
+account=account_datas
+# 계좌 잔고(보유 종목) 관리
+balance=balance_datas
+# 잔고 변동 이력 (대시보드 그래프용, 없어도 기본값으로 자동 동작)
+balance_history=balance_history_datas
+# 입출금 내역
+transaction=transaction_datas
+# 포트폴리오(투자 전략) 정의
+portfolio=portfolio_datas
+# 계좌별 월간 요약 트렌드 (없어도 기본값으로 자동 동작)
+account_monthly_trend=account_monthly_trend_datas
+# 회원(로그인 계정) 정보 (없어도 기본값으로 자동 동작)
+user=user_datas
+# 회원별 UI 환경설정 저장 (없어도 기본값으로 자동 동작)
+user_preferences=user_preferences
+# 게시판 글 (없어도 기본값으로 자동 동작)
+board=board_posts
+# 앱 내부 설정(스케줄러 등) 저장 (없어도 기본값으로 자동 동작)
+settings=app_settings
+# 시스템 로그
+log=log_datas
+
+[server]
+# Docker(gunicorn) 실행 시 동시 처리량/메모리 사용량 제어
+gunicorn_workers=1
+gunicorn_threads=2
+gunicorn_timeout_sec=120
+# run_backend.py(개발 실행)에서 Flask threaded 모드 사용 여부
+flask_threaded=true
+
+[performance]
+# MongoDB 연결 풀/타임아웃
+mongodb_server_selection_timeout_ms=5000
+mongodb_connect_timeout_ms=5000
+mongodb_socket_timeout_ms=5000
+mongodb_max_pool_size=5
+mongodb_max_idle_time_ms=60000
+
+# 현재가 수집 병렬/타임아웃 튜닝
+fetch_price_max_workers=1
+fetch_price_batch_timeout_sec=30
+fetch_price_task_timeout_sec=5
+fetch_price_inter_task_delay_sec=0.15
+fetch_price_request_timeout_sec=3
+fetch_price_inflight_ttl_sec=5
+fetch_price_inflight_wait_sec=8
+fetch_price_max_batch_size=50
+fetch_price_verbose_logs=false
+
+# 계좌 재계산 및 백그라운드 작업 동시성
+recalc_account_workers=1
+background_refresh_workers=1
+background_refresh_queue=1
+background_refresh_cooldown_sec=30
+# 사용자 강제 갱신 버튼 최소 간격(초, DB price_settings 없을 때 기본)
+force_refresh_cooldown_sec=60
+
+# APScheduler 내부 실행 워커 수
+scheduler_max_workers=1
+scheduler_max_active_requests=2
+scheduler_misfire_grace_sec=120
+scheduler_job_max_instances=1
+scheduler_coalesce=true
+portfolio_refresh_min_interval_minutes=15
+
+# 현재가 캐시 기준(분)
+price_refresh_threshold_minutes=10
+
+# 동일 쿼리 병렬 요청 시 MongoDB 중복 조회를 줄이기 위한 in-process 캐시
+query_cache_ttl_sec=5
+query_cache_wait_timeout_sec=3
+
+[flask]
+# 세션 암호화 키 — 반드시 아래 예시 대신 본인만의 길고 복잡한 임의 문자열로 변경하세요.
+# 생성 예: python -c "import secrets; print(secrets.token_hex(32))"
+secret_key=CHANGE_ME_TO_A_LONG_RANDOM_STRING
+# HTTPS 사용 시에만 true로 설정 (브라우저가 보안 연결이 아닐 때 쿠키 전송 방지)
+secure_cookie=false
+# 세션 유지 기간 (일 단위), 기본 3650일 (10년)
+session_lifetime_days=3650
