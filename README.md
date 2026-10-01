@@ -275,10 +275,10 @@ Docker만 설치된 로컬 PC 또는 클라우드 VPS에서 동일하게 사용�
 #### 7.2 VPS 1회 초기 설정
 
 ```bash
-# 서버에서 1회만
-cd /home/ubuntu
-git clone <YOUR_REPOSITORY_URL> stock-manage-1
-cd stock-manage-1/stock-manage-flask
+# 서버에서 1회만 (DEPLOY_PATH 기본값과 동일하게 ~/stock-manage 사용)
+cd ~
+git clone <YOUR_REPOSITORY_URL> stock-manage
+cd stock-manage
 cp config.ini.example config.ini
 # config.ini 편집
 ./scripts/start-docker.sh install
